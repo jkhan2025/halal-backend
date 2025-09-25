@@ -1,0 +1,5 @@
+{
+  "watch": ["index.js", "models", "routes", "lib"],
+  "ext": "js,json",
+  "ignore": ["uploads/**", "node_modules/**", ".git/**", "logs/**"]
+}

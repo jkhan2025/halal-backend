@@ -1,0 +1,860 @@
+[
+  {
+    "type": "grocery",
+    "name": "Fresh Halal Meat & Restaurant",
+    "city": "Bridgeport",
+    "state": "CT",
+    "address": "866 North Ave, Bridgeport, CT 06606",
+    "phone": "(203) 333-3702",
+    "website": "https://www.freshhalalbridgeport.com/",
+    "tags": [
+      "Butcher",
+      "Grocery",
+      "Restaurant"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.4,
+    "photos": [
+      "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "tue": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "wed": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "thu": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "08:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "09:00",
+          "19:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.1926153,
+      "lng": -73.1966489
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Farmer's India Market",
+    "city": "Orange",
+    "state": "CT",
+    "address": "100 Boston Post Rd, Orange, CT 06477",
+    "phone": "(203) 577-5438",
+    "website": "https://indiamarket.co/store-locator.html",
+    "tags": [
+      "Spices",
+      "Produce",
+      "Butcher"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.5,
+    "photos": [
+      "https://images.unsplash.com/photo-1594040226829-95f0d59bdc83?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "09:00",
+          "21:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "21:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "21:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "21:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "21:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "21:00"
+        ]
+      ],
+      "sun": [
+        [
+          "09:00",
+          "21:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.2755348,
+      "lng": -72.990967
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Halal Food Market",
+    "city": "Windsor",
+    "state": "CT",
+    "address": "398 Windsor Ave, Windsor, CT 06095",
+    "phone": "(860) 494-5888",
+    "website": "https://halalfoodmarket.info",
+    "tags": [
+      "Grocery",
+      "Butcher"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.3,
+    "photos": [
+      "https://images.unsplash.com/photo-1543168256-418811576931?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "20:30"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "20:30"
+        ]
+      ],
+      "sun": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.8144948,
+      "lng": -72.6572108
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "International Halal Market LLC",
+    "city": "Waterbury",
+    "state": "CT",
+    "address": "130 Scott Rd, Ste 9, Waterbury, CT 06705",
+    "phone": "(203) 527-5859",
+    "tags": [
+      "Butcher",
+      "Grocery"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.2,
+    "photos": [
+      "https://images.unsplash.com/photo-1517263904808-5dc91e3e7044?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "09:00",
+          "19:30"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "19:30"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "19:30"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "19:30"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Makkah Halal Market",
+    "city": "West Haven",
+    "state": "CT",
+    "address": "702 Boston Post Rd, West Haven, CT 06516",
+    "phone": "(203) 934-7091",
+    "tags": [
+      "Butcher",
+      "Grocery"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.3,
+    "photos": [
+      "https://images.unsplash.com/photo-1599256630530-8c61b22988e1?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.2880834,
+      "lng": -72.971686
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Bismillah Grocery & Halal Meat",
+    "city": "Waterbury",
+    "state": "CT",
+    "address": "72 Store Ave, Waterbury, CT 06705",
+    "phone": "(203) 597-1416",
+    "website": "https://bismillahgrocerymeatmarket.com",
+    "tags": [
+      "Butcher",
+      "Grocery"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.1,
+    "photos": [
+      "https://images.unsplash.com/photo-1605901309584-818e25960a8b?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "09:00",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.551938,
+      "lng": -73.0102437
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Almadina Halal Supermarket",
+    "city": "New Britain",
+    "state": "CT",
+    "address": "268 Allen St, New Britain, CT 06053",
+    "phone": "(860) 223-6666",
+    "tags": [
+      "Middle Eastern",
+      "Grocery",
+      "Deli"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.2,
+    "photos": [
+      "https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "tue": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "wed": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "thu": [
+        [
+          "09:00",
+          "20:00"
+        ]
+      ],
+      "fri": [
+        [
+          "09:00",
+          "20:30"
+        ]
+      ],
+      "sat": [
+        [
+          "09:00",
+          "20:30"
+        ]
+      ],
+      "sun": [
+        [
+          "10:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.6827735,
+      "lng": -72.7781303
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "New Britain Halal Market",
+    "city": "New Britain",
+    "state": "CT",
+    "address": "268 Allen St, New Britain, CT 06053",
+    "tags": [
+      "Grocery",
+      "Hot Food"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4,
+    "photos": [
+      "https://images.unsplash.com/photo-1520671451482-2eb2bd6fb569?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "11:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.6827735,
+      "lng": -72.7781303
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Nazar Halal Meat & Market",
+    "city": "West Haven",
+    "state": "CT",
+    "address": "39 Elm St #8, West Haven, CT 06516",
+    "phone": "(203) 891-7757",
+    "tags": [
+      "Butcher",
+      "Grocery"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.2,
+    "photos": [
+      "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "11:00",
+          "18:00"
+        ]
+      ]
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Kabul Halal Market",
+    "city": "West Haven",
+    "state": "CT",
+    "address": "723 Boston Post Rd, West Haven, CT 06516",
+    "phone": "(203) 745-4943",
+    "website": "https://kabulhalalmarket.net",
+    "tags": [
+      "Afghan",
+      "Grocery",
+      "Deli"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.3,
+    "photos": [
+      "https://images.unsplash.com/photo-1542831371-29b0f74f9713?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "11:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.2881747,
+      "lng": -72.9723462
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Norwalk Halal Meat Market",
+    "city": "Norwalk",
+    "state": "CT",
+    "address": "60 Connecticut Ave, Norwalk, CT 06850",
+    "phone": "(203) 939-9119",
+    "tags": [
+      "Butcher",
+      "Grocery"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.1,
+    "photos": [
+      "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "11:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.1076321,
+      "lng": -73.4225982
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Zaytuna Halal Meat & Grocery",
+    "city": "Danbury",
+    "state": "CT",
+    "address": "397 Main St, Danbury, CT 06810",
+    "phone": "(203) 826-7039",
+    "tags": [
+      "Butcher",
+      "Grocery"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.4,
+    "photos": [
+      "https://images.unsplash.com/photo-1584302179609-41f2ae1ecf5c?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "11:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.4021542,
+      "lng": -73.4587293
+    }
+  },
+  {
+    "type": "grocery",
+    "name": "Super Halal Meat & Grocery",
+    "city": "Danbury",
+    "state": "CT",
+    "address": "52 Padanaram Rd, Danbury, CT 06811",
+    "phone": "(203) 730-2956",
+    "tags": [
+      "Butcher",
+      "Grocery"
+    ],
+    "halal": true,
+    "certified": false,
+    "rating": 4.2,
+    "photos": [
+      "https://images.unsplash.com/photo-1563245372-f21724e3856b?q=80&w=1200&auto=format&fit=crop"
+    ],
+    "hours_raw": {
+      "mon": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "tue": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "wed": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "thu": [
+        [
+          "10:00",
+          "19:00"
+        ]
+      ],
+      "fri": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sat": [
+        [
+          "10:00",
+          "20:00"
+        ]
+      ],
+      "sun": [
+        [
+          "11:00",
+          "18:00"
+        ]
+      ]
+    },
+    "coords": {
+      "lat": 41.4178291,
+      "lng": -73.4640208
+    }
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ct-r1",
+    "name": "Roti Boti",
+    "cuisine": "Pakistani",
+    "city": "Meriden",
+    "state": "CT",
+    "price": 2,
+    "rating": 4.5,
+    "halal": true,
+    "certified": true,
+    "coords": { "lat": 41.5382, "lng": -72.8070 },
+    "photos": ["https://images.unsplash.com/photo-1604908554027-642d7196f2e1?q=80&w=1400&auto=format&fit=crop"],
+    "hours_raw": { "mon": [["11:00","22:00"]], "tue": [["11:00","22:00"]], "wed": [["11:00","22:00"]], "thu": [["11:00","22:00"]], "fri": [["11:00","23:00"]], "sat": [["11:00","23:00"]], "sun": [["12:00","21:00"]] }
+  }
+]

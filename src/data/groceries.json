@@ -1,0 +1,16 @@
+[
+  {
+    "id": "ct1",
+    "name": "Fresh Halal Meat & Restaurant",
+    "city": "Bridgeport",
+    "state": "CT",
+    "address": "866 North Ave, Bridgeport, CT 06606",
+    "phone": "(203) 333-3702",
+    "tags": ["Butcher","Grocery","Restaurant"],
+    "halal": true,
+    "certified": false,
+    "rating": 4.4,
+    "photos": ["https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=1200&auto=format&fit=crop"],
+    "hours_raw": { "mon": [["08:00","20:00"]], "tue": [["08:00","20:00"]], "wed": [["08:00","20:00"]], "thu": [["08:00","20:00"]], "fri": [["08:00","20:00"]], "sat": [["08:00","20:00"]], "sun": [["09:00","19:00"]] }
+  }
+]
