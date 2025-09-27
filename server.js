@@ -93,6 +93,15 @@ const SubmissionSchema = new mongoose.Schema(
 );
 const Submission = mongoose.model("Submission", SubmissionSchema);
 
+// NEW: Optional Product model + OFF helper
+let Product;
+try {
+  Product = require("./models/Product");
+} catch (e) {
+  console.warn("Product model not found; OFF lookup route will be disabled.");
+}
+const { fetchFromOFF } = require("./src/lib/off");
+
 /* ──────────────────────────────────────────────────────────────────────────
    MIDDLEWARE
 ────────────────────────────────────────────────────────────────────────── */
@@ -398,6 +407,50 @@ app.get("/v1/submissions", requireApiKey, async (req, res) => {
   const docs = await Submission.find(q).sort({ createdAt: -1 }).limit(50).lean();
   res.json({ ok: true, items: docs });
 });
+
+/* ──────────────────────────────────────────────────────────────────────────
+   PRODUCTS: local → OFF fallback lookup (supports ?refresh=1 to force refetch)
+────────────────────────────────────────────────────────────────────────── */
+if (Product) {
+  app.get("/api/products/:barcode", async (req, res) => {
+    try {
+      const barcode = String(req.params.barcode || "").replace(/\D/g, "");
+      if (!barcode) return res.status(400).json({ ok: false, error: "BAD_BARCODE" });
+
+      const force = String(req.query.refresh || req.query.force || "").toLowerCase();
+      const shouldRefresh = force === "1" || force === "true" || force === "yes";
+
+      // 1) Try local unless refresh is requested
+      if (!shouldRefresh) {
+        const doc = await Product.findOne({ barcode }).lean();
+        if (doc) return res.json({ ok: true, source: "local", item: doc });
+      }
+
+      // 2) Fallback to OFF
+      const ua = process.env.OFF_USER_AGENT || "HalalQuest/1.0 (+contact)";
+      const normalized = await fetchFromOFF(barcode, ua);
+
+      if (!normalized) {
+        // If OFF fails but we have local, return local
+        const fallback = await Product.findOne({ barcode }).lean();
+        if (fallback) return res.json({ ok: true, source: "local", item: fallback });
+        return res.status(404).json({ ok: false, error: "NOT_FOUND" });
+      }
+
+      // 3) Upsert into your DB
+      const saved = await Product.findOneAndUpdate(
+        { barcode },
+        { $set: normalized },
+        { new: true, upsert: true }
+      ).lean();
+
+      return res.json({ ok: true, source: "openfoodfacts", item: saved });
+    } catch (err) {
+      console.error("OFF lookup error:", err);
+      return res.status(500).json({ ok: false, error: "SERVER_ERROR" });
+    }
+  });
+}
 
 /* ──────────────────────────────────────────────────────────────────────────
    404 + ERROR HANDLERS
