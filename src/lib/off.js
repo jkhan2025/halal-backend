@@ -81,23 +81,33 @@ function normalizeOFF(barcode, p) {
 /** Fetch from OFF and return a normalized Product object (or null). */
 async function fetchFromOFF(barcode, userAgent = "HalalQuest/1.0 (+contact)") {
   if (!barcode) return null;
-  const url = `https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(barcode)}.json`;
-  try {
-    const { status, data } = await axios.get(url, {
-      headers: { "User-Agent": userAgent },
-      timeout: 12000,
-      // do not throw on non-2xx; we'll handle statuses below
-      validateStatus: () => true,
-    });
 
-    if (status !== 200 || !data || data.status !== 1 || !data.product) {
-      return null; // treat as "not found" / unusable
+  const tryFetch = async (code) => {
+    const url = `https://world.openfoodfacts.org/api/v2/product/${encodeURIComponent(code)}.json`;
+    try {
+      const { status, data } = await axios.get(url, {
+        headers: { "User-Agent": userAgent },
+        timeout: 12000,
+        validateStatus: () => true, // don’t throw on non-2xx
+      });
+      if (status === 200 && data && data.status === 1 && data.product) {
+        return normalizeOFF(code, data.product);
+      }
+      return null;
+    } catch {
+      return null; // network/timeout → treat as not found
     }
-    return normalizeOFF(barcode, data.product);
-  } catch (_err) {
-    // network error / timeout → treat as not found to avoid 500s
-    return null;
+  };
+
+  // 1) Try as-is
+  let out = await tryFetch(barcode);
+
+  // 2) If it looks like a 12-digit UPC-A, try EAN-13 with a leading zero
+  if (!out && /^\d{12}$/.test(barcode)) {
+    out = await tryFetch(`0${barcode}`);
   }
+
+  return out;
 }
 
 module.exports = { fetchFromOFF };
