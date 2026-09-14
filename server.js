@@ -15,8 +15,9 @@ const sharp = require("sharp");
 const { v4: uuidv4 } = require("uuid");
 const slugify = require("slugify");
 
-// Optional S3
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+// Optional Supabase Storage (production evidence photo storage, protected
+// mode only — see runtimeSafety.js, which forbids this driver locally)
+const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
 
@@ -35,12 +36,13 @@ const {
   CORS_ORIGIN, // optional; defaults to "*"
 
   // Storage
-  STORAGE_DRIVER = "local", // "local" | "s3"
+  STORAGE_DRIVER = "local", // "local" | "supabase"
   UPLOAD_BASE = "uploads", // local folder
-  S3_REGION,
-  S3_BUCKET,
-  S3_ENDPOINT, // optional (e.g. Cloudflare R2/MinIO)
-  CDN_BASE_URL, // optional: if set, returned URLs are CDN_BASE_URL/<key>
+  SUPABASE_URL,
+  SUPABASE_SERVICE_ROLE_KEY, // secret — backend-only, never sent to the frontend
+  SUPABASE_STORAGE_BUCKET,
+  CDN_BASE_URL, // optional; local mode only — see saveImageBuffer's supabase branch for why signed moderation URLs never depend on this
+  STORAGE_KEY_PREFIX, // optional; supabase mode only — environment namespace prefix, e.g. "prod" (see src/lib/storageKey.js)
 } = process.env;
 
 if (!MONGO_URI) {
@@ -66,7 +68,7 @@ const SubmissionSchema = new mongoose.Schema(
         url: String,
         width: Number,
         height: Number,
-        key: String, // s3 key or local relative path
+        key: String, // storage key (Supabase Storage path) or local relative path
       },
       ingredients: {
         url: String,
@@ -75,9 +77,18 @@ const SubmissionSchema = new mongoose.Schema(
         key: String,
       },
     },
-
     // NEW: freeform report photos (0-5), distinct from the fixed front/
     // ingredients pair above — backs POST /api/reports.
+    //
+    // `key` (production object storage v1): the durable storage identity
+    // for this photo — a local relative path or a Supabase Storage path.
+    // Optional and absent on submissions created before this pass
+    // (local-QA-era documents have `url` only) — nothing back-fills or
+    // requires it on old documents. `url` remains populated for local-mode
+    // submissions (unchanged, already-public /uploads path); it is
+    // deliberately left null for new supabase-mode submissions, since a
+    // private bucket makes a stored "public" URL misleading — see
+    // saveImageBuffer's supabase branch.
     photos: [
       {
         url: String,
@@ -133,6 +144,15 @@ const {
   linkSubmissionToProduct,
   unlinkSubmissionFromProduct,
 } = require("./src/domain/submissionModeration");
+const { sanitizeKeyPrefix, isValidStorageKey } = require("./src/lib/storageKey");
+const { createPhotoStorage } = require("./src/domain/photoStorage");
+const { createSignedPhotoUrl } = require("./src/lib/signedPhotoUrl");
+const { attachPhotoDisplayUrls, attachPhotoDisplayUrlsToList } = require("./src/domain/photoDisplayUrls");
+
+// Validated once at startup — throws (crashing boot) if someone sets a
+// malformed STORAGE_KEY_PREFIX, the same fail-fast posture already used
+// for other storage misconfiguration (e.g. missing SUPABASE_STORAGE_BUCKET).
+const RESOLVED_STORAGE_KEY_PREFIX = sanitizeKeyPrefix(STORAGE_KEY_PREFIX);
 
 /* ──────────────────────────────────────────────────────────────────────────
    MIDDLEWARE
@@ -169,85 +189,47 @@ if (STORAGE_DRIVER === "local") {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   STORAGE HELPERS (local or s3)
+   STORAGE HELPERS (local or supabase)
 ────────────────────────────────────────────────────────────────────────── */
-const s3 =
-  STORAGE_DRIVER === "s3"
-    ? new S3Client({
-        region: S3_REGION,
-        endpoint: S3_ENDPOINT || undefined,
-        forcePathStyle: !!S3_ENDPOINT, // for R2/MinIO
-      })
-    : null;
+// The service-role key grants full, RLS-bypassing access — this client is
+// constructed ONLY when STORAGE_DRIVER=supabase (itself only reachable in
+// protected mode, per runtimeSafety.js) and is never exposed outside this
+// server process; nothing here ever sends it to the frontend.
+const supabaseStorageClient =
+  STORAGE_DRIVER === "supabase" ? createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY) : null;
 
 function publicUrlForKey(key) {
   if (CDN_BASE_URL) return `${CDN_BASE_URL.replace(/\/+$/, "")}/${key}`;
-  if (STORAGE_DRIVER === "s3") return `https://${S3_BUCKET}.s3.${S3_REGION}.amazonaws.com/${key}`;
-  // local
-  return `/${UPLOAD_BASE}/${key}`;
+  // local — supabase mode never calls this (see photoStorage.js's supabase
+  // branch, which returns url: null for a private bucket instead).
+  return `/uploads/${key}`;
 }
 
-async function saveImageBuffer({ buffer, keyBase, contentType = "image/jpeg" }) {
-  // Create 2 variants: full (max 1600w) and thumb (max 480w)
-  const fullKey = `${keyBase}-full.jpg`;
-  const thumbKey = `${keyBase}-thumb.jpg`;
+// saveImageBuffer/deleteSavedImage themselves live in src/domain/photoStorage.js
+// (production evidence photo storage v1) — extracted so the actual
+// supabase/local upload+delete logic is unit-testable (this file can never
+// be require()'d under NODE_ENV=test — see src/config/runtimeSafety.js).
+// This wiring is the only place real sharp/fs/Supabase client instances are
+// handed to it; nothing about the live behavior itself changes by being
+// here instead of inline.
+const { saveImageBuffer, deleteSavedImage } = createPhotoStorage({
+  sharp,
+  fs,
+  path,
+  storageDriver: STORAGE_DRIVER,
+  uploadDir: UPLOAD_DIR,
+  supabaseClient: supabaseStorageClient,
+  bucket: SUPABASE_STORAGE_BUCKET,
+  keyPrefix: RESOLVED_STORAGE_KEY_PREFIX,
+  publicUrlForKey,
+  isValidStorageKey,
+});
 
-  const full = await sharp(buffer)
-    .rotate()
-    .jpeg({ quality: 82, mozjpeg: true })
-    .resize({ width: 1600, withoutEnlargement: true })
-    .toBuffer({ resolveWithObject: true });
-
-  const thumb = await sharp(buffer)
-    .rotate()
-    .jpeg({ quality: 76, mozjpeg: true })
-    .resize({ width: 480, withoutEnlargement: true })
-    .toBuffer({ resolveWithObject: true });
-
-  if (STORAGE_DRIVER === "s3") {
-    if (!S3_BUCKET || !S3_REGION) throw new Error("S3 config missing");
-
-    // IMPORTANT: No ACL on Bucket owner enforced buckets.
-    await s3.send(
-      new PutObjectCommand({
-        Bucket: S3_BUCKET,
-        Key: fullKey,
-        Body: full.data,
-        ContentType: contentType,
-        CacheControl: "public, max-age=31536000, immutable",
-      })
-    );
-    await s3.send(
-      new PutObjectCommand({
-        Bucket: S3_BUCKET,
-        Key: thumbKey,
-        Body: thumb.data,
-        ContentType: contentType,
-        CacheControl: "public, max-age=31536000, immutable",
-      })
-    );
-  } else {
-    const fullPath = path.join(UPLOAD_DIR, fullKey);
-    const thumbPath = path.join(UPLOAD_DIR, thumbKey);
-    fs.mkdirSync(path.dirname(fullPath), { recursive: true });
-    fs.writeFileSync(fullPath, full.data);
-    fs.writeFileSync(thumbPath, thumb.data);
-  }
-
-  return {
-    full: {
-      key: fullKey,
-      url: publicUrlForKey(fullKey),
-      width: full.info.width,
-      height: full.info.height,
-    },
-    thumb: {
-      key: thumbKey,
-      url: publicUrlForKey(thumbKey),
-      width: thumb.info.width,
-      height: thumb.info.height,
-    },
-  };
+// Signed, short-lived GET URL for a private Supabase evidence photo — used
+// only by the moderation routes below, generated at READ TIME, never
+// stored.
+function signPhotoUrl(key) {
+  return createSignedPhotoUrl({ supabaseClient: supabaseStorageClient, bucket: SUPABASE_STORAGE_BUCKET }, { key });
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -468,18 +450,10 @@ const reportsLimiter = rateLimit({
   message: { ok: false, error: "RATE_LIMITED" },
 });
 
-// No object-storage deletion provider exists yet at this commit boundary —
-// the S3/local driver above has no delete function. createProductReport's
-// cleanup hook (deleteSavedImage) is an optional dependency (see
-// src/domain/productReports.js's cleanupWrittenKeys, which no-ops when it
-// is not supplied) and is simply omitted here rather than wired to a fake
-// provider. Real deletion arrives with the Supabase Storage / photoStorage.js
-// commit.
-
 app.post("/api/reports", reportsLimiter, async (req, res) => {
   try {
     const result = await createProductReport(
-      { Submission, saveImageBuffer, uuidv4 },
+      { Submission, saveImageBuffer, uuidv4, deleteSavedImage },
       {
         barcode: req.body?.barcode,
         message: req.body?.message,
@@ -511,23 +485,25 @@ app.post("/api/reports", reportsLimiter, async (req, res) => {
    src/domain/submissionModeration.js's header for the enforced mechanism
    (linking only ever reads a Product's _id, never any other field).
    ═══════════════════════════════════════════════════════════════════════
-
-   Photo display: this commit intentionally returns raw stored photo
-   fields (url/key) as-is, with no signed-URL/display-URL enrichment layer
-   — that enrichment (src/domain/photoDisplayUrls.js, short-lived signed
-   Supabase URLs) is genuinely storage-provider-specific and is deferred to
-   the Supabase Storage commit, which will layer it on top of these same
-   routes without changing their auth/state-machine/trust-boundary behavior.
 ────────────────────────────────────────────────────────────────────────── */
+// Photo access (production evidence photo storage v1): local mode keeps
+// exposing the already-public, already-stored `url` unchanged; supabase
+// mode exposes a fresh short-lived signed `displayUrl` derived from the
+// stored `key`, generated here at read time — never written back to Mongo.
+// A legacy local-QA record with a `url` but no `key` gets displayUrl: null
+// under supabase mode rather than any attempt to derive/guess one.
 app.get("/api/admin/submissions", requireAdminKey, async (req, res) => {
   const result = await listSubmissions(Submission, { status: req.query.status, limit: req.query.limit });
   if (!result.ok) return res.status(result.status).json({ ok: false, error: result.error });
-  return res.status(result.status).json(result.body);
+  const items = await attachPhotoDisplayUrlsToList(result.body.items, { storageDriver: STORAGE_DRIVER, signPhotoUrl });
+  return res.status(result.status).json({ ...result.body, items });
 });
 
 app.get("/api/admin/submissions/:id", requireAdminKey, async (req, res) => {
   const result = await getSubmission(Submission, req.params.id);
-  return res.status(result.status).json(result.ok ? result.body : { ok: false, error: result.error });
+  if (!result.ok) return res.status(result.status).json({ ok: false, error: result.error });
+  const submission = await attachPhotoDisplayUrls(result.body.submission, { storageDriver: STORAGE_DRIVER, signPhotoUrl });
+  return res.status(result.status).json({ ...result.body, submission });
 });
 
 app.patch("/api/admin/submissions/:id/status", requireAdminKey, async (req, res) => {

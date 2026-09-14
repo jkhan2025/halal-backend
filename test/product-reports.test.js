@@ -62,7 +62,7 @@ after(() => {
 test("POST /api/reports is registered in server.js (the canonical, deployed entrypoint), reusing server.js's own Submission model", () => {
   const serverSource = fs.readFileSync(path.resolve(__dirname, "../server.js"), "utf8");
   assert.match(serverSource, /app\.post\(\s*"\/api\/reports",\s*reportsLimiter,\s*async/);
-  assert.match(serverSource, /createProductReport\(\s*\{ Submission, saveImageBuffer, uuidv4 \}/);
+  assert.match(serverSource, /createProductReport\(\s*\{ Submission, saveImageBuffer, uuidv4, deleteSavedImage \}/);
   // Must never depend on the broken orphan router or its nonexistent model.
   assert.doesNotMatch(serverSource, /reports\.routes/);
 });
