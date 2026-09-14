@@ -1,5 +1,5 @@
 // backend/server.js
-require("dotenv").config({ path: require("path").join(__dirname, ".env") });
+const runtimeSafety = require("./src/config/runtimeSafety").validateRuntime();
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -25,6 +25,7 @@ const app = express();
 ────────────────────────────────────────────────────────────────────────── */
 const {
   PORT = 5050,
+  HOST = "0.0.0.0",
   MONGO_URI,
   NODE_ENV = "development",
 
@@ -134,7 +135,7 @@ app.use(
 /* ──────────────────────────────────────────────────────────────────────────
    STATIC (local uploads)
 ────────────────────────────────────────────────────────────────────────── */
-const UPLOAD_DIR = path.join(__dirname, UPLOAD_BASE);
+const UPLOAD_DIR = runtimeSafety.uploadRoot;
 if (STORAGE_DRIVER === "local") {
   if (!fs.existsSync(UPLOAD_DIR)) fs.mkdirSync(UPLOAD_DIR, { recursive: true });
   app.use("/uploads", express.static(UPLOAD_DIR, { maxAge: "7d", index: false }));
@@ -465,7 +466,7 @@ app.use((req, res) => res.status(404).json({ ok: false, error: "Not found" }));
     await mongoose.connect(MONGO_URI);
     console.log("✅ Mongo connected");
 
-    app.listen(PORT, "0.0.0.0", () => {
+    app.listen(PORT, HOST, () => {
       console.log(`🚀 API on http://localhost:${PORT}`);
       console.log(
         `   Storage: ${STORAGE_DRIVER}${

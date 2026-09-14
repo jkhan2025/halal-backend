@@ -1,5 +1,5 @@
 // backend/index.js
-require("dotenv").config({ path: require("path").join(__dirname, ".env") });
+require("./src/config/runtimeSafety").validateRuntime();
 
 const express = require("express");
 const mongoose = require("mongoose");

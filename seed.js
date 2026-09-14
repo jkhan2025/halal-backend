@@ -1,5 +1,5 @@
 // backend/seed.js
-require("dotenv").config();
+require('./src/config/runtimeSafety').assertMaintenanceAllowed();
 const mongoose = require("mongoose");
 const Product = require("./models/Product");
 

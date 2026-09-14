@@ -1,4 +1,5 @@
 // index.js
+throw new Error('Development safety: unsupported legacy startup; use backend/server.js');
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');

@@ -80,6 +80,7 @@ function normalizeOFF(barcode, p) {
 
 /** Fetch from OFF and return a normalized Product object (or null). */
 async function fetchFromOFF(barcode, userAgent = "HalalQuest/1.0 (+contact)") {
+  if (!require('../config/runtimeSafety').validateRuntime().externalHttp) return null;
   if (!barcode) return null;
 
   const tryFetch = async (code) => {

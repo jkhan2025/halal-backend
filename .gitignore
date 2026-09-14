@@ -1,0 +1,22 @@
+# Secrets: examples remain intentional tracked documentation.
+.env
+.env.*
+!.env.example
+!.env.*.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Dependencies, stored data, and generated local artifacts.
+node_modules/
+uploads/
+.local/
+coverage/
+dist/
+build/
+.expo/
+*.log
+*.tsbuildinfo
+.DS_Store
+Thumbs.db

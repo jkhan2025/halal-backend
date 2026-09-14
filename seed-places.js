@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('./src/config/runtimeSafety').assertMaintenanceAllowed();
 const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");

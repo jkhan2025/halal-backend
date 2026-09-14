@@ -1,4 +1,5 @@
 // backend/scripts/geocode-place-file.js
+require('../src/config/runtimeSafety').assertExternalMaintenanceAllowed();
 // Usage: node scripts/geocode-place-file.js src/data/ct_groceries.json
 const fs = require('fs');
 const path = require('path');

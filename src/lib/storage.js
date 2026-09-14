@@ -1,4 +1,5 @@
 // backend/src/lib/storage.js
+const runtimeSafety = require('../config/runtimeSafety').validateRuntime();
 const fs = require("fs");
 const path = require("path");
 const sharp = require("sharp");
@@ -25,6 +26,7 @@ const isTruthy = (v) => {
   return s === "1" || s === "true" || s === "yes";
 };
 const isS3ConfiguredHard = () =>
+  runtimeSafety.mode === 'protected' && process.env.STORAGE_DRIVER === 's3' &&
   isTruthy(S3_TOGGLE) && !!BUCKET && !!REGION && !!ACCESS_KEY_ID && !!SECRET_ACCESS_KEY;
 
 /* ------------------------ AWS SDK lazy init ------------------------ */
@@ -67,7 +69,7 @@ function storageInfo() {
 }
 
 /* ------------------------ Local uploads dir ------------------------ */
-const LOCAL_UPLOAD_DIR = path.join(__dirname, "..", "..", "uploads");
+const LOCAL_UPLOAD_DIR = runtimeSafety.uploadRoot;
 if (!fs.existsSync(LOCAL_UPLOAD_DIR)) fs.mkdirSync(LOCAL_UPLOAD_DIR, { recursive: true });
 
 /* ------------------------ Mime helpers ------------------------ */

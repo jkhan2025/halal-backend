@@ -1,5 +1,5 @@
 // backend/scripts/seed-places.js
-require("dotenv").config({ path: require("path").join(__dirname, "..", ".env") });
+require('../src/config/runtimeSafety').assertMaintenanceAllowed();
 const fs = require("fs");
 const path = require("path");
 const mongoose = require("mongoose");

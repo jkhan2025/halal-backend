@@ -1,5 +1,5 @@
 // backend/config/env.js
-require("dotenv").config();
+const runtimeSafety = require("./runtimeSafety").validateRuntime();
 const path = require("path");
 
 function num(key, def) {
@@ -10,7 +10,7 @@ function num(key, def) {
 const PORT = process.env.PORT || "5050";
 const HOST = process.env.HOST || "0.0.0.0";
 const CORS_ORIGIN = process.env.CORS_ORIGIN || "*";
-const UPLOAD_DIR = path.resolve(process.cwd(), process.env.UPLOAD_DIR || "uploads");
+const UPLOAD_DIR = runtimeSafety.uploadRoot;
 const ADMIN_KEY = process.env.ADMIN_KEY || "";
 
 const MAX_JSON_MB = num("MAX_JSON_MB", 15);   // JSON body limit

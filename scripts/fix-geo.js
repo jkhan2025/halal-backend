@@ -1,5 +1,5 @@
 // backend/scripts/fix-geo.js
-require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
+require('../src/config/runtimeSafety').assertMaintenanceAllowed();
 const path = require('path');
 const fs = require('fs');
 const mongoose = require('mongoose');

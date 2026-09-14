@@ -1,3 +1,4 @@
+const runtimeSafety = require('../config/runtimeSafety').validateRuntime();
 const router = require('express').Router();
 const path = require('path');
 const fs = require('fs');
@@ -7,7 +8,7 @@ const multer = require('multer');
 const Place = require('../../models/Place');  // NOTE: models is outside /src
 const Claim = require('../../models/Claim');
 
-const UPLOAD_DIR = path.join(__dirname, '..', '..', 'uploads', 'places');
+const UPLOAD_DIR = path.join(runtimeSafety.uploadRoot, 'places');
 fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 
 const storage = multer.diskStorage({

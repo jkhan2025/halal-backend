@@ -1,5 +1,6 @@
 // backend/models/Product.js
 const mongoose = require("mongoose");
+const { TrustSchema } = require("./Trust");
 
 /** Evidence/source for a verdict */
 const SourceSchema = new mongoose.Schema(
@@ -20,7 +21,7 @@ const OpinionSchema = new mongoose.Schema(
   {
     verdict: {
       type: String,
-      enum: ["HALAL", "HARAM", "MUSHBOOH", "UNKNOWN"],
+      enum: ["HALAL", "HARAM", "MUSHBOOH", "NEEDS_REVIEW", "UNKNOWN"],
       default: "UNKNOWN",
     },
     note: { type: String, trim: true },
@@ -52,12 +53,14 @@ const ProductSchema = new mongoose.Schema(
 
     verdict: {
       type: String,
-      enum: ["HALAL", "HARAM", "MUSHBOOH", "UNKNOWN"],
+      enum: ["HALAL", "HARAM", "MUSHBOOH", "NEEDS_REVIEW", "UNKNOWN"],
       default: "UNKNOWN",
     },
     reason: { type: String, trim: true },
 
-    confidence: { type: Number, min: 0, max: 100, default: 50 },
+    // Legacy field retained for stored-document compatibility. New trust results
+    // use categorical evidence states and do not invent a default probability.
+    confidence: { type: Number, min: 0, max: 100 },
 
     opinions: {
       default: { type: OpinionSchema, default: { verdict: "UNKNOWN", note: "" } },
@@ -71,6 +74,7 @@ const ProductSchema = new mongoose.Schema(
     lastCheckedAt: Date,
 
     sources: [SourceSchema],
+    trust: { type: TrustSchema, default: undefined },
   },
   { timestamps: true }
 );

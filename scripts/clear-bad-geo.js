@@ -1,5 +1,5 @@
 // scripts/clear-bad-geo.js
-require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') });
+require('../src/config/runtimeSafety').assertMaintenanceAllowed();
 const mongoose = require('mongoose');
 const Place = require('../models/Place');
 
