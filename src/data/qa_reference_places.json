@@ -1,0 +1,1309 @@
+[
+  {
+    "sourceId": "qa-rest-001",
+    "_id": "c2771a341c461ef3b0c787a8",
+    "type": "restaurant",
+    "name": "The Cedar Kebab House",
+    "cuisine": "Middle Eastern",
+    "tags": [
+      "Halal Certified"
+    ],
+    "address": "142 Farmington Ave",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06105",
+    "phone": "+1 860 555 0101",
+    "website": "cedarkebabhouse.example",
+    "coords": {
+      "lat": 41.7658,
+      "lng": -72.6734
+    },
+    "restaurantTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-r001-cert",
+          "type": "CERTIFICATE",
+          "subject": {
+            "placeId": "c2771a341c461ef3b0c787a8",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "c2771a341c461ef3b0c787a8"
+          },
+          "issuer": {
+            "type": "CERTIFICATION_AUTHORITY",
+            "id": "qa-cert-auth-1",
+            "name": "QA Reference Halal Certification Board"
+          },
+          "sourceRef": "QA-CERT-R001",
+          "sourceUrl": "https://qa-cert-authority.example/certs/QA-CERT-R001",
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": {
+            "authorityName": "QA Reference Halal Certification Board",
+            "certificateId": "QA-CERT-R001",
+            "status": "ACTIVE",
+            "validFrom": "2026-08-01T00:00:00.000Z",
+            "expiresAt": "2027-06-01T00:00:00.000Z"
+          }
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-r001-cert",
+          "type": "INDEPENDENT_CERTIFICATION",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "c2771a341c461ef3b0c787a8",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "c2771a341c461ef3b0c787a8"
+          },
+          "claimant": {
+            "type": "CERTIFICATION_AUTHORITY",
+            "id": "qa-cert-auth-1",
+            "name": "QA Reference Halal Certification Board"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-r001-cert"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "known": [
+        {
+          "id": "kn-r001-1",
+          "text": "Independent certification covers the entire restaurant.",
+          "claimRefs": [
+            "cl-r001-cert"
+          ],
+          "evidenceRefs": [
+            "ev-r001-cert"
+          ]
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-rest-002",
+    "_id": "344a011c412ffb33b06c8e70",
+    "type": "restaurant",
+    "name": "Spice Route",
+    "cuisine": "Indian",
+    "tags": [],
+    "address": "89 Main St",
+    "city": "New Britain",
+    "state": "CT",
+    "postcode": "06051",
+    "phone": "+1 860 555 0102",
+    "coords": {
+      "lat": 41.7738,
+      "lng": -72.6834
+    },
+    "restaurantTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-r002-biz",
+          "type": "BUSINESS_ATTESTATION",
+          "subject": {
+            "placeId": "344a011c412ffb33b06c8e70",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "344a011c412ffb33b06c8e70"
+          },
+          "issuer": {
+            "type": "OWNER",
+            "id": "qa-owner-r002",
+            "name": "Spice Route Ownership"
+          },
+          "sourceRef": "QA-ATTEST-R002",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-r002-biz",
+          "type": "BUSINESS_CONFIRMATION",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "344a011c412ffb33b06c8e70",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "344a011c412ffb33b06c8e70"
+          },
+          "claimant": {
+            "type": "OWNER",
+            "id": "qa-owner-r002",
+            "name": "Spice Route Ownership"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-r002-biz"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-rest-003",
+    "_id": "e899a78b6d190dc28367e5f6",
+    "type": "restaurant",
+    "name": "Lahore Grill & Biryani House of New England",
+    "cuisine": "Pakistani",
+    "tags": [],
+    "address": "500 Park Rd",
+    "city": "West Hartford",
+    "state": "CT",
+    "postcode": "06119",
+    "phone": "+1 860 555 0103",
+    "website": "lahoregrillbiryani.example",
+    "coords": {
+      "lat": 41.7818,
+      "lng": -72.6934
+    },
+    "restaurantTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-r003-cert",
+          "type": "CERTIFICATE",
+          "subject": {
+            "placeId": "e899a78b6d190dc28367e5f6",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "e899a78b6d190dc28367e5f6"
+          },
+          "issuer": {
+            "type": "CERTIFICATION_AUTHORITY",
+            "id": "qa-cert-auth-1",
+            "name": "QA Reference Halal Certification Board"
+          },
+          "sourceRef": "QA-CERT-R003",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": {
+            "authorityName": "QA Reference Halal Certification Board",
+            "certificateId": "QA-CERT-R003",
+            "status": "ACTIVE",
+            "validFrom": "2026-08-01T00:00:00.000Z",
+            "expiresAt": "2027-06-01T00:00:00.000Z"
+          }
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-r003-cert",
+          "type": "INDEPENDENT_CERTIFICATION",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "e899a78b6d190dc28367e5f6",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "e899a78b6d190dc28367e5f6"
+          },
+          "claimant": {
+            "type": "CERTIFICATION_AUTHORITY",
+            "id": "qa-cert-auth-1",
+            "name": "QA Reference Halal Certification Board"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-r003-cert"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-rest-004",
+    "_id": "9a1f2aa84b9749a91c15d109",
+    "type": "restaurant",
+    "name": "Olive Branch Mediterranean Kitchen",
+    "cuisine": "Mediterranean",
+    "tags": [],
+    "address": "77 Asylum St",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06103",
+    "website": "olivebranchmedkitchen.example",
+    "coords": {
+      "lat": 41.7898,
+      "lng": -72.7034
+    },
+    "restaurantTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-r004-meat",
+          "type": "BUSINESS_ATTESTATION",
+          "subject": {
+            "placeId": "9a1f2aa84b9749a91c15d109",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "MEAT_SERVED",
+            "placeId": "9a1f2aa84b9749a91c15d109"
+          },
+          "issuer": {
+            "type": "OWNER",
+            "id": "qa-owner-r004",
+            "name": "Olive Branch Ownership"
+          },
+          "sourceRef": "QA-ATTEST-R004",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-r004-meat",
+          "type": "HALAL_MEAT_CLAIM",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "9a1f2aa84b9749a91c15d109",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "MEAT_SERVED",
+            "placeId": "9a1f2aa84b9749a91c15d109"
+          },
+          "claimant": {
+            "type": "OWNER",
+            "id": "qa-owner-r004",
+            "name": "Olive Branch Ownership"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-r004-meat"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-rest-005",
+    "_id": "8c4e1982a2bfeca1d9fc41bc",
+    "type": "restaurant",
+    "name": "Prime Burgers",
+    "cuisine": "Burgers",
+    "tags": [],
+    "address": "23 Sisson Ave",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06105",
+    "phone": "+1 860 555 0105",
+    "coords": {
+      "lat": 41.7978,
+      "lng": -72.7134
+    },
+    "restaurantTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-r005-menu",
+          "type": "MENU_DOCUMENT",
+          "subject": {
+            "placeId": "8c4e1982a2bfeca1d9fc41bc",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "MENU_ITEM",
+            "placeId": "8c4e1982a2bfeca1d9fc41bc",
+            "menuItemId": "item-halal-beef-burger"
+          },
+          "issuer": {
+            "type": "OWNER",
+            "id": "qa-owner-r005",
+            "name": "Prime Burgers Ownership"
+          },
+          "sourceRef": "QA-MENU-R005",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-r005-menu",
+          "type": "MENU_COVERAGE_CLAIM",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "8c4e1982a2bfeca1d9fc41bc",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "MENU_ITEM",
+            "placeId": "8c4e1982a2bfeca1d9fc41bc",
+            "menuItemId": "item-halal-beef-burger",
+            "label": "Halal Beef Burger"
+          },
+          "claimant": {
+            "type": "OWNER",
+            "id": "qa-owner-r005",
+            "name": "Prime Burgers Ownership"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-r005-menu"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-rest-006",
+    "_id": "6952c1b2ccc09062ea9ed0ee",
+    "type": "restaurant",
+    "name": "Bella Pizza Co",
+    "cuisine": "Pizza",
+    "tags": [],
+    "address": "310 New Park Ave",
+    "city": "West Hartford",
+    "state": "CT",
+    "postcode": "06110",
+    "coords": {
+      "lat": 41.8058,
+      "lng": -72.7234
+    },
+    "restaurantTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-r006-comm",
+          "type": "COMMUNITY_REPORT",
+          "subject": {
+            "placeId": "6952c1b2ccc09062ea9ed0ee",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "6952c1b2ccc09062ea9ed0ee"
+          },
+          "issuer": {
+            "type": "COMMUNITY_MEMBER",
+            "id": "qa-community-1",
+            "name": "QA Reference Community Reporter"
+          },
+          "sourceRef": "QA-COMMUNITY-R006",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-r006-comm",
+          "type": "COMMUNITY_REPORT",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "6952c1b2ccc09062ea9ed0ee",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "6952c1b2ccc09062ea9ed0ee"
+          },
+          "claimant": {
+            "type": "COMMUNITY_MEMBER",
+            "id": "qa-community-1",
+            "name": "QA Reference Community Reporter"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-r006-comm"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-rest-007",
+    "_id": "fdffa6ab3a215c1d2b617670",
+    "type": "restaurant",
+    "name": "Sultan's Shawarma",
+    "cuisine": "Shawarma",
+    "tags": [],
+    "address": "18 Union Pl",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06103",
+    "phone": "+1 860 555 0107",
+    "website": "sultansshawarma.example",
+    "coords": {
+      "lat": 41.8138,
+      "lng": -72.7334
+    }
+  },
+  {
+    "sourceId": "qa-rest-008",
+    "_id": "4202753c3330c853430f01ed",
+    "type": "restaurant",
+    "name": "Delhi Dhaba",
+    "cuisine": "Indian",
+    "tags": [],
+    "address": "600 Farmington Ave",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06105",
+    "coords": {
+      "lat": 41.8218,
+      "lng": -72.7434
+    },
+    "restaurantTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-r008-comm",
+          "type": "COMMUNITY_REPORT",
+          "subject": {
+            "placeId": "4202753c3330c853430f01ed",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "4202753c3330c853430f01ed"
+          },
+          "issuer": {
+            "type": "COMMUNITY_MEMBER",
+            "id": "qa-community-2",
+            "name": "QA Reference Community Reporter Two"
+          },
+          "sourceRef": "QA-COMMUNITY-R008",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-r008-comm",
+          "type": "COMMUNITY_REPORT",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "4202753c3330c853430f01ed",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "4202753c3330c853430f01ed"
+          },
+          "claimant": {
+            "type": "COMMUNITY_MEMBER",
+            "id": "qa-community-2",
+            "name": "QA Reference Community Reporter Two"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-r008-comm"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-rest-009",
+    "_id": "de56b88546d4a3178f35b226",
+    "type": "restaurant",
+    "name": "Cairo Nights",
+    "cuisine": "Middle Eastern",
+    "tags": [],
+    "address": "45 Pratt St",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06103",
+    "phone": "+1 860 555 0109",
+    "coords": {
+      "lat": 41.8298,
+      "lng": -72.7534
+    },
+    "restaurantTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-r009-biz",
+          "type": "BUSINESS_ATTESTATION",
+          "subject": {
+            "placeId": "de56b88546d4a3178f35b226",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "de56b88546d4a3178f35b226"
+          },
+          "issuer": {
+            "type": "OWNER",
+            "id": "qa-owner-r009",
+            "name": "Cairo Nights Ownership"
+          },
+          "sourceRef": "QA-ATTEST-R009",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-r009-biz",
+          "type": "BUSINESS_CONFIRMATION",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "de56b88546d4a3178f35b226",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_LOCATION",
+            "placeId": "de56b88546d4a3178f35b226"
+          },
+          "claimant": {
+            "type": "OWNER",
+            "id": "qa-owner-r009",
+            "name": "Cairo Nights Ownership"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-r009-biz"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-rest-010",
+    "_id": "e677fc9f75166de8738d6289",
+    "type": "restaurant",
+    "name": "Roma",
+    "cuisine": "Pizza",
+    "tags": [],
+    "address": "12 Wethersfield Ave",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06114",
+    "coords": {
+      "lat": 41.8378,
+      "lng": -72.7634
+    },
+    "halal": true
+  },
+  {
+    "sourceId": "qa-grocery-001",
+    "_id": "123b10f7ae878f2417ee0985",
+    "type": "grocery",
+    "name": "Crescent Halal Market",
+    "tags": [
+      "Butcher"
+    ],
+    "address": "210 Franklin Ave",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06114",
+    "phone": "+1 860 555 0201",
+    "website": "crescenthalalmarket.example",
+    "coords": {
+      "lat": 41.7658,
+      "lng": -72.6734
+    },
+    "groceryTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-g001-cert",
+          "type": "CERTIFICATE",
+          "subject": {
+            "placeId": "123b10f7ae878f2417ee0985",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_STORE",
+            "placeId": "123b10f7ae878f2417ee0985"
+          },
+          "issuer": {
+            "type": "CERTIFICATION_AUTHORITY",
+            "id": "qa-cert-auth-1",
+            "name": "QA Reference Halal Certification Board"
+          },
+          "sourceRef": "QA-CERT-G001",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": {
+            "authorityName": "QA Reference Halal Certification Board",
+            "certificateId": "QA-CERT-G001",
+            "status": "ACTIVE",
+            "validFrom": "2026-08-01T00:00:00.000Z",
+            "expiresAt": "2027-06-01T00:00:00.000Z"
+          }
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-g001-cert",
+          "type": "INDEPENDENT_CERTIFICATION",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "123b10f7ae878f2417ee0985",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_STORE",
+            "placeId": "123b10f7ae878f2417ee0985"
+          },
+          "claimant": {
+            "type": "CERTIFICATION_AUTHORITY",
+            "id": "qa-cert-auth-1",
+            "name": "QA Reference Halal Certification Board"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-g001-cert"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-grocery-002",
+    "_id": "bd26cfcdd46fffa92f75b471",
+    "type": "grocery",
+    "name": "Green Valley Supermarket",
+    "tags": [
+      "Butcher"
+    ],
+    "address": "1200 New Britain Ave",
+    "city": "West Hartford",
+    "state": "CT",
+    "postcode": "06110",
+    "phone": "+1 860 555 0202",
+    "coords": {
+      "lat": 41.7718,
+      "lng": -72.6854
+    },
+    "groceryTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-g002-meat",
+          "type": "SUPPLIER_DOCUMENT",
+          "subject": {
+            "placeId": "bd26cfcdd46fffa92f75b471",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "MEAT_DEPARTMENT",
+            "placeId": "bd26cfcdd46fffa92f75b471",
+            "departmentId": "dept-halal-meat"
+          },
+          "issuer": {
+            "type": "SUPPLIER",
+            "id": "qa-supplier-1",
+            "name": "QA Reference Halal Meat Supplier"
+          },
+          "sourceRef": "QA-SUPPLIER-G002",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-g002-meat",
+          "type": "HALAL_MEAT_DEPARTMENT_CLAIM",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "bd26cfcdd46fffa92f75b471",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "MEAT_DEPARTMENT",
+            "placeId": "bd26cfcdd46fffa92f75b471",
+            "departmentId": "dept-halal-meat",
+            "label": "Halal Meat & Butcher Counter"
+          },
+          "claimant": {
+            "type": "BUSINESS",
+            "id": "qa-owner-g002",
+            "name": "Green Valley Supermarket Management"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-g002-meat"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-grocery-003",
+    "_id": "3ae3be266b1f0d4cf6dc6806",
+    "type": "grocery",
+    "name": "Sunrise International Grocers & Halal Deli",
+    "tags": [],
+    "address": "875 Park St",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06106",
+    "phone": "+1 860 555 0203",
+    "website": "sunriseinternationalgrocers.example",
+    "coords": {
+      "lat": 41.7778,
+      "lng": -72.6974
+    },
+    "groceryTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-g003-biz",
+          "type": "BUSINESS_ATTESTATION",
+          "subject": {
+            "placeId": "3ae3be266b1f0d4cf6dc6806",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_STORE",
+            "placeId": "3ae3be266b1f0d4cf6dc6806"
+          },
+          "issuer": {
+            "type": "OWNER",
+            "id": "qa-owner-g003",
+            "name": "Sunrise International Ownership"
+          },
+          "sourceRef": "QA-ATTEST-G003",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-g003-biz",
+          "type": "BUSINESS_CONFIRMATION",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "3ae3be266b1f0d4cf6dc6806",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_STORE",
+            "placeId": "3ae3be266b1f0d4cf6dc6806"
+          },
+          "claimant": {
+            "type": "OWNER",
+            "id": "qa-owner-g003",
+            "name": "Sunrise International Ownership"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-g003-biz"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-grocery-004",
+    "_id": "4b252984c475300de4adde9e",
+    "type": "grocery",
+    "name": "Baker's Corner",
+    "tags": [
+      "Bakery"
+    ],
+    "address": "44 South Whitney St",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06105",
+    "coords": {
+      "lat": 41.7838,
+      "lng": -72.7094
+    },
+    "groceryTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-g004-cat",
+          "type": "PRODUCT_CATEGORY_DOCUMENT",
+          "subject": {
+            "placeId": "4b252984c475300de4adde9e",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "PRODUCT_CATEGORY",
+            "placeId": "4b252984c475300de4adde9e",
+            "categoryId": "cat-bakery"
+          },
+          "issuer": {
+            "type": "OWNER",
+            "id": "qa-owner-g004",
+            "name": "Baker's Corner Ownership"
+          },
+          "sourceRef": "QA-CATDOC-G004",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-g004-cat",
+          "type": "PRODUCT_CATEGORY_CLAIM",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "4b252984c475300de4adde9e",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "PRODUCT_CATEGORY",
+            "placeId": "4b252984c475300de4adde9e",
+            "categoryId": "cat-bakery",
+            "label": "Bakery Items"
+          },
+          "claimant": {
+            "type": "OWNER",
+            "id": "qa-owner-g004",
+            "name": "Baker's Corner Ownership"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-g004-cat"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-grocery-005",
+    "_id": "8bb00aacf4d1d514db74a519",
+    "type": "grocery",
+    "name": "Frost Foods",
+    "tags": [
+      "Frozen"
+    ],
+    "address": "300 Cottage Grove Rd",
+    "city": "Bloomfield",
+    "state": "CT",
+    "postcode": "06002",
+    "phone": "+1 860 555 0205",
+    "coords": {
+      "lat": 41.7898,
+      "lng": -72.7214
+    },
+    "groceryTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-g005-comm",
+          "type": "COMMUNITY_REPORT",
+          "subject": {
+            "placeId": "8bb00aacf4d1d514db74a519",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_STORE",
+            "placeId": "8bb00aacf4d1d514db74a519"
+          },
+          "issuer": {
+            "type": "COMMUNITY_MEMBER",
+            "id": "qa-community-3",
+            "name": "QA Reference Community Reporter Three"
+          },
+          "sourceRef": "QA-COMMUNITY-G005",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-g005-comm",
+          "type": "COMMUNITY_REPORT",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "8bb00aacf4d1d514db74a519",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_STORE",
+            "placeId": "8bb00aacf4d1d514db74a519"
+          },
+          "claimant": {
+            "type": "COMMUNITY_MEMBER",
+            "id": "qa-community-3",
+            "name": "QA Reference Community Reporter Three"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-g005-comm"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-grocery-006",
+    "_id": "17bfb36db3527f5e24aa5e47",
+    "type": "grocery",
+    "name": "Al-Noor Grocery",
+    "tags": [
+      "Butcher",
+      "Bakery"
+    ],
+    "address": "980 Main St",
+    "city": "East Hartford",
+    "state": "CT",
+    "postcode": "06108",
+    "phone": "+1 860 555 0206",
+    "website": "alnoorgrocery.example",
+    "coords": {
+      "lat": 41.7958,
+      "lng": -72.7334
+    },
+    "groceryTrust": {
+      "version": 1,
+      "evidence": [
+        {
+          "id": "ev-g006-cert",
+          "type": "CERTIFICATE",
+          "subject": {
+            "placeId": "17bfb36db3527f5e24aa5e47",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_STORE",
+            "placeId": "17bfb36db3527f5e24aa5e47"
+          },
+          "issuer": {
+            "type": "CERTIFICATION_AUTHORITY",
+            "id": "qa-cert-auth-1",
+            "name": "QA Reference Halal Certification Board"
+          },
+          "sourceRef": "QA-CERT-G006",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": {
+            "authorityName": "QA Reference Halal Certification Board",
+            "certificateId": "QA-CERT-G006",
+            "status": "ACTIVE",
+            "validFrom": "2026-08-01T00:00:00.000Z",
+            "expiresAt": "2027-06-01T00:00:00.000Z"
+          }
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-g006-cert",
+          "type": "INDEPENDENT_CERTIFICATION",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": "17bfb36db3527f5e24aa5e47",
+            "chainId": null
+          },
+          "coverage": {
+            "kind": "ENTIRE_STORE",
+            "placeId": "17bfb36db3527f5e24aa5e47"
+          },
+          "claimant": {
+            "type": "CERTIFICATION_AUTHORITY",
+            "id": "qa-cert-auth-1",
+            "name": "QA Reference Halal Certification Board"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-g006-cert"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "sourceId": "qa-grocery-007",
+    "_id": "8305230c7859e73acce7d4c8",
+    "type": "grocery",
+    "name": "Mart",
+    "tags": [],
+    "address": "5 Retreat Ave",
+    "city": "Hartford",
+    "state": "CT",
+    "postcode": "06106",
+    "coords": {
+      "lat": 41.8018,
+      "lng": -72.7454
+    }
+  },
+  {
+    "sourceId": "qa-grocery-008",
+    "_id": "e489ec16516dcaacdd1790eb",
+    "type": "grocery",
+    "name": "Value Foods Chain Location #12",
+    "tags": [],
+    "address": "700 Silver Ln",
+    "city": "East Hartford",
+    "state": "CT",
+    "postcode": "06118",
+    "phone": "+1 860 555 0208",
+    "coords": {
+      "lat": 41.8078,
+      "lng": -72.7574
+    },
+    "groceryTrust": {
+      "version": 1,
+      "chain": {
+        "chainId": "qa-chain-valuefoods",
+        "name": "Value Foods"
+      },
+      "evidence": [
+        {
+          "id": "ev-g008-chain",
+          "type": "BUSINESS_ATTESTATION",
+          "subject": {
+            "placeId": null,
+            "chainId": "qa-chain-valuefoods"
+          },
+          "coverage": {
+            "kind": "CHAIN_LEVEL_ONLY",
+            "chainId": "qa-chain-valuefoods"
+          },
+          "issuer": {
+            "type": "BUSINESS",
+            "id": "qa-owner-chain-valuefoods",
+            "name": "Value Foods Corporate"
+          },
+          "sourceRef": "QA-ATTEST-G008-CHAIN",
+          "sourceUrl": null,
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": null,
+          "relatedClaimRefs": [],
+          "limitations": [],
+          "certification": null
+        }
+      ],
+      "claims": [
+        {
+          "id": "cl-g008-chain",
+          "type": "BUSINESS_CONFIRMATION",
+          "position": "AFFIRMS",
+          "subject": {
+            "placeId": null,
+            "chainId": "qa-chain-valuefoods"
+          },
+          "coverage": {
+            "kind": "CHAIN_LEVEL_ONLY",
+            "chainId": "qa-chain-valuefoods"
+          },
+          "claimant": {
+            "type": "BUSINESS",
+            "id": "qa-owner-chain-valuefoods",
+            "name": "Value Foods Corporate"
+          },
+          "reviewState": "ACCEPTED",
+          "reviewedBy": "qa-reference-reviewer",
+          "evidenceRefs": [
+            "ev-g008-chain"
+          ],
+          "effectiveFrom": "2026-08-01T00:00:00.000Z",
+          "effectiveTo": null,
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "limitations": []
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  }
+]

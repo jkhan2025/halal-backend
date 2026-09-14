@@ -1,0 +1,596 @@
+[
+  {
+    "barcode": "991000000001",
+    "name": "Crescent Farms Halal Chicken Nuggets",
+    "brand": "Crescent Farms",
+    "category": "Frozen Meat",
+    "ingredients": [
+      "chicken breast",
+      "halal-certified",
+      "breadcrumbs",
+      "vegetable oil",
+      "salt",
+      "spices"
+    ],
+    "trust": {
+      "verdict": "HALAL",
+      "evidence": [
+        {
+          "id": "ev-p001",
+          "type": "CERTIFIED",
+          "reviewState": "ACCEPTED",
+          "title": "Product certification",
+          "authorityName": "QA Reference Halal Certification Board",
+          "publisher": null,
+          "sourceUrl": null,
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "scope": {
+            "kind": "PRODUCT",
+            "target": "crescent-farms-halal-nuggets"
+          },
+          "notes": null,
+          "certificateId": "QA-CERT-P001",
+          "validFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": "2027-06-01T00:00:00.000Z",
+          "certificationStatus": "ACTIVE"
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000002",
+    "name": "Sunrise Halal Beef Sausage",
+    "brand": "Sunrise Foods",
+    "category": "Deli Meat",
+    "ingredients": [
+      "beef",
+      "halal-certified",
+      "water",
+      "salt",
+      "spices",
+      "natural casing"
+    ],
+    "trust": {
+      "verdict": "HALAL",
+      "evidence": [
+        {
+          "id": "ev-p002",
+          "type": "MANUFACTURER_CONFIRMED",
+          "reviewState": "ACCEPTED",
+          "title": "Manufacturer halal confirmation",
+          "authorityName": null,
+          "publisher": "Sunrise Foods",
+          "sourceUrl": null,
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "scope": {
+            "kind": "PRODUCT",
+            "target": "sunrise-halal-beef-sausage"
+          },
+          "notes": null,
+          "certificateId": null,
+          "validFrom": null,
+          "expiresAt": null,
+          "certificationStatus": null
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000003",
+    "name": "Al-Baraka Frozen Halal Meatballs",
+    "brand": "Al-Baraka",
+    "category": "Frozen Meat",
+    "ingredients": [
+      "beef",
+      "halal-certified",
+      "breadcrumbs",
+      "onion",
+      "garlic",
+      "spices"
+    ],
+    "trust": {
+      "verdict": "HALAL",
+      "evidence": [
+        {
+          "id": "ev-p003",
+          "type": "CERTIFIED",
+          "reviewState": "ACCEPTED",
+          "title": "Product certification",
+          "authorityName": "QA Reference Halal Certification Board",
+          "publisher": null,
+          "sourceUrl": null,
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "scope": {
+            "kind": "PRODUCT",
+            "target": "al-baraka-halal-meatballs"
+          },
+          "notes": null,
+          "certificateId": "QA-CERT-P003",
+          "validFrom": "2026-08-01T00:00:00.000Z",
+          "expiresAt": "2027-06-01T00:00:00.000Z",
+          "certificationStatus": "ACTIVE"
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000004",
+    "name": "Golden Gummy Bears",
+    "brand": "Golden Candy Co",
+    "category": "Candy",
+    "ingredients": [
+      "sugar",
+      "corn syrup",
+      "gelatin (porcine)",
+      "citric acid",
+      "artificial flavors",
+      "artificial colors"
+    ],
+    "trust": {
+      "verdict": "HARAM",
+      "evidence": [
+        {
+          "id": "ev-p004",
+          "type": "INGREDIENT_ANALYSIS",
+          "reviewState": "ACCEPTED",
+          "title": "Ingredient panel analysis",
+          "authorityName": "QA Reference Ingredient Review Panel",
+          "publisher": null,
+          "sourceUrl": null,
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "scope": {
+            "kind": "PRODUCT",
+            "target": "golden-gummy-bears"
+          },
+          "notes": null,
+          "certificateId": null,
+          "validFrom": null,
+          "expiresAt": null,
+          "certificationStatus": null
+        }
+      ],
+      "observedIngredients": [
+        {
+          "id": "oi-p004",
+          "rawText": "gelatin (porcine)",
+          "normalizedName": "Gelatin",
+          "additiveCode": null,
+          "sourceType": "PACKAGE_LABEL",
+          "extractionMethod": "MANUAL",
+          "reviewState": "ACCEPTED",
+          "evidenceRefs": [
+            "ev-p004"
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "id": "f-p004",
+          "role": "DECISIVE",
+          "kind": "INGREDIENT",
+          "label": "Porcine gelatin",
+          "finding": "Gelatin is confirmed to be of porcine origin.",
+          "whyItMatters": "Porcine-derived ingredients are not halal.",
+          "status": "CONFIRMED",
+          "evidenceRefs": [
+            "ev-p004"
+          ],
+          "observedIngredientRefs": [
+            "oi-p004"
+          ],
+          "productSpecificSource": {
+            "state": "VERIFIED_PRODUCT_SPECIFIC",
+            "value": "gelatin (porcine)",
+            "evidenceRefs": [
+              "ev-p004"
+            ]
+          }
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000005",
+    "name": "Rustic Wine-Braised Beef Stew (Canned)",
+    "brand": "Rustic Kitchen",
+    "category": "Canned Meals",
+    "ingredients": [
+      "beef",
+      "red wine",
+      "carrots",
+      "potatoes",
+      "onion",
+      "beef broth",
+      "seasoning"
+    ],
+    "trust": {
+      "verdict": "HARAM",
+      "evidence": [
+        {
+          "id": "ev-p005",
+          "type": "INGREDIENT_ANALYSIS",
+          "reviewState": "ACCEPTED",
+          "title": "Ingredient panel analysis",
+          "authorityName": "QA Reference Ingredient Review Panel",
+          "publisher": null,
+          "sourceUrl": null,
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "scope": {
+            "kind": "PRODUCT",
+            "target": "rustic-wine-braised-beef-stew"
+          },
+          "notes": null,
+          "certificateId": null,
+          "validFrom": null,
+          "expiresAt": null,
+          "certificationStatus": null
+        }
+      ],
+      "observedIngredients": [
+        {
+          "id": "oi-p005",
+          "rawText": "red wine",
+          "normalizedName": "Wine",
+          "additiveCode": null,
+          "sourceType": "PACKAGE_LABEL",
+          "extractionMethod": "MANUAL",
+          "reviewState": "ACCEPTED",
+          "evidenceRefs": [
+            "ev-p005"
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "id": "f-p005",
+          "role": "DECISIVE",
+          "kind": "INGREDIENT",
+          "label": "Wine as a listed ingredient",
+          "finding": "Red wine is confirmed present as a formulated ingredient, not merely a cooking residue.",
+          "whyItMatters": "Wine (an alcoholic ingredient) present as a formulated ingredient is not halal.",
+          "status": "CONFIRMED",
+          "evidenceRefs": [
+            "ev-p005"
+          ],
+          "observedIngredientRefs": [
+            "oi-p005"
+          ],
+          "productSpecificSource": {
+            "state": "VERIFIED_PRODUCT_SPECIFIC",
+            "value": "red wine",
+            "evidenceRefs": [
+              "ev-p005"
+            ]
+          }
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000006",
+    "name": "Classic Pork Sausage Links",
+    "brand": "Classic Deli",
+    "category": "Breakfast Meat",
+    "ingredients": [
+      "pork",
+      "water",
+      "salt",
+      "spices",
+      "natural casing"
+    ],
+    "trust": {
+      "verdict": "HARAM",
+      "evidence": [
+        {
+          "id": "ev-p006",
+          "type": "INGREDIENT_ANALYSIS",
+          "reviewState": "ACCEPTED",
+          "title": "Ingredient panel analysis",
+          "authorityName": "QA Reference Ingredient Review Panel",
+          "publisher": null,
+          "sourceUrl": null,
+          "sourceDate": "2026-08-01T00:00:00.000Z",
+          "checkedAt": "2026-08-01T00:00:00.000Z",
+          "scope": {
+            "kind": "PRODUCT",
+            "target": "classic-pork-sausage-links"
+          },
+          "notes": null,
+          "certificateId": null,
+          "validFrom": null,
+          "expiresAt": null,
+          "certificationStatus": null
+        }
+      ],
+      "observedIngredients": [
+        {
+          "id": "oi-p006",
+          "rawText": "pork",
+          "normalizedName": "Pork",
+          "additiveCode": null,
+          "sourceType": "PACKAGE_LABEL",
+          "extractionMethod": "MANUAL",
+          "reviewState": "ACCEPTED",
+          "evidenceRefs": [
+            "ev-p006"
+          ]
+        }
+      ],
+      "factors": [
+        {
+          "id": "f-p006",
+          "role": "DECISIVE",
+          "kind": "INGREDIENT",
+          "label": "Pork",
+          "finding": "Pork is the primary listed ingredient.",
+          "whyItMatters": "Pork is not halal.",
+          "status": "CONFIRMED",
+          "evidenceRefs": [
+            "ev-p006"
+          ],
+          "observedIngredientRefs": [
+            "oi-p006"
+          ],
+          "productSpecificSource": {
+            "state": "VERIFIED_PRODUCT_SPECIFIC",
+            "value": "pork",
+            "evidenceRefs": [
+              "ev-p006"
+            ]
+          }
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000007",
+    "name": "Value Brand Marshmallows",
+    "brand": "Value Brand",
+    "category": "Candy",
+    "ingredients": [
+      "corn syrup",
+      "sugar",
+      "gelatin",
+      "water",
+      "vanilla flavor"
+    ],
+    "trust": {
+      "verdict": "NEEDS_REVIEW",
+      "factors": [
+        {
+          "id": "f-p007",
+          "role": "UNRESOLVED",
+          "kind": "INGREDIENT",
+          "label": "Gelatin source not specified",
+          "finding": "The package does not state whether the gelatin is of bovine, porcine, or fish origin.",
+          "whyItMatters": "Gelatin source determines halal status and cannot currently be confirmed.",
+          "status": "POSSIBLE",
+          "possibleSources": [
+            "bovine",
+            "porcine",
+            "fish"
+          ]
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000008",
+    "name": "Farmhouse Aged Cheddar Cheese",
+    "brand": "Farmhouse Dairy",
+    "category": "Dairy",
+    "ingredients": [
+      "pasteurized milk",
+      "salt",
+      "enzymes (rennet)",
+      "cheese culture"
+    ],
+    "trust": {
+      "verdict": "NEEDS_REVIEW",
+      "factors": [
+        {
+          "id": "f-p008",
+          "role": "UNRESOLVED",
+          "kind": "INGREDIENT",
+          "label": "Rennet source not specified",
+          "finding": "The package lists 'enzymes (rennet)' without stating whether it is microbial, plant, or animal-derived.",
+          "whyItMatters": "Animal-derived rennet from a non-halal-slaughtered source would not be halal; microbial/plant rennet would be.",
+          "status": "POSSIBLE",
+          "possibleSources": [
+            "microbial",
+            "plant",
+            "animal"
+          ]
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000009",
+    "name": "Bakery Style Vanilla Extract",
+    "brand": "Bakery Style",
+    "category": "Baking",
+    "ingredients": [
+      "water",
+      "alcohol",
+      "vanilla bean extractives",
+      "caramel color"
+    ],
+    "trust": {
+      "verdict": "NEEDS_REVIEW",
+      "factors": [
+        {
+          "id": "f-p009",
+          "role": "UNRESOLVED",
+          "kind": "INGREDIENT",
+          "label": "Alcohol carrier concentration not specified",
+          "finding": "The label lists alcohol as an extraction carrier but does not state the final alcohol content or whether it is removed during baking use.",
+          "whyItMatters": "Trace flavoring alcohol is treated differently depending on concentration and processing, which is not established here.",
+          "status": "POSSIBLE"
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000010",
+    "name": "Imported Soft Caramel Candy",
+    "brand": "Imported Treats",
+    "category": "Candy",
+    "ingredients": [
+      "sugar",
+      "glucose syrup",
+      "vegetable fat",
+      "emulsifier (mono- and diglycerides)",
+      "salt",
+      "flavoring"
+    ],
+    "trust": {
+      "verdict": "NEEDS_REVIEW",
+      "factors": [
+        {
+          "id": "f-p010",
+          "role": "UNRESOLVED",
+          "kind": "ADDITIVE",
+          "label": "Emulsifier source not specified",
+          "finding": "Mono- and diglycerides are listed without disclosing whether the source is plant or animal-derived.",
+          "whyItMatters": "Animal-derived emulsifiers from a non-halal-slaughtered source would not be halal; plant-derived would be.",
+          "status": "POSSIBLE",
+          "possibleSources": [
+            "plant",
+            "animal"
+          ]
+        }
+      ],
+      "checkedAt": "2026-08-01T00:00:00.000Z"
+    }
+  },
+  {
+    "barcode": "991000000011",
+    "name": "Daily Basics White Bread",
+    "brand": "Daily Basics",
+    "category": "Bakery",
+    "ingredients": [
+      "wheat flour",
+      "water",
+      "yeast",
+      "salt",
+      "sugar"
+    ]
+  },
+  {
+    "barcode": "991000000012",
+    "name": "Value Choice Frozen Pizza",
+    "brand": "Value Choice",
+    "category": "Frozen Meals",
+    "ingredients": [
+      "dough",
+      "tomato sauce",
+      "cheese",
+      "toppings"
+    ]
+  },
+  {
+    "barcode": "991000000013",
+    "name": "Harvest Grain Granola Bars",
+    "brand": "Harvest",
+    "category": "Snacks",
+    "ingredients": [
+      "oats",
+      "honey",
+      "almonds",
+      "dried fruit"
+    ],
+    "halal": true
+  },
+  {
+    "barcode": "991000000014",
+    "name": "Northgate Sparkling Water",
+    "brand": "Northgate",
+    "category": "Beverages",
+    "ingredients": [
+      "carbonated water",
+      "natural flavor"
+    ]
+  },
+  {
+    "barcode": "991000000015",
+    "name": "Value Basics All-Purpose Flour",
+    "brand": "Value Basics",
+    "category": "Baking",
+    "ingredients": [
+      "enriched wheat flour"
+    ]
+  },
+  {
+    "barcode": "991000000016",
+    "name": "XL Family Size Original Recipe Extra Crispy Seasoned Breaded Chicken Tenders With Signature Sauce Packet",
+    "brand": "XL Family",
+    "category": "Frozen Meals",
+    "ingredients": [
+      "chicken",
+      "breading",
+      "seasoning",
+      "sauce packet"
+    ]
+  },
+  {
+    "barcode": "991000000017",
+    "name": "Cola",
+    "brand": "Sun",
+    "category": "Beverages",
+    "ingredients": [
+      "carbonated water",
+      "sugar",
+      "caramel color",
+      "caffeine"
+    ]
+  },
+  {
+    "barcode": "991000000018",
+    "name": "Meadow Fresh Dairy Yogurt Cup",
+    "brand": "Meadow Fresh",
+    "category": "Dairy",
+    "ingredients": [
+      "cultured milk",
+      "sugar",
+      "fruit"
+    ]
+  },
+  {
+    "barcode": "991000000019",
+    "name": "Golden Wheat Crackers",
+    "brand": "Golden Wheat",
+    "category": "Snacks",
+    "ingredients": [
+      "wheat flour",
+      "vegetable oil",
+      "salt",
+      "yeast"
+    ]
+  },
+  {
+    "barcode": "991000000020",
+    "name": "Ocean Blue Canned Tuna in Water",
+    "brand": "Ocean Blue",
+    "category": "Canned Goods",
+    "ingredients": [
+      "tuna",
+      "water",
+      "salt"
+    ]
+  }
+]
