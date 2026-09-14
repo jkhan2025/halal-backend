@@ -31,6 +31,7 @@ const {
 
   // Security
   API_KEY, // optional; if set, required for POST /v1/submissions
+  ADMIN_KEY, // required by the startup safety boundary; gates /api/admin/* moderation routes
   CORS_ORIGIN, // optional; defaults to "*"
 
   // Storage
@@ -75,6 +76,17 @@ const SubmissionSchema = new mongoose.Schema(
       },
     },
 
+    // NEW: freeform report photos (0-5), distinct from the fixed front/
+    // ingredients pair above — backs POST /api/reports.
+    photos: [
+      {
+        url: String,
+        key: String,
+        kind: { type: String, enum: ["front", "ingredients"], default: "front" },
+        _id: false,
+      },
+    ],
+
     // status/lifecycle
     status: {
       type: String,
@@ -82,6 +94,15 @@ const SubmissionSchema = new mongoose.Schema(
       default: "pending",
       index: true,
     },
+
+    // moderation metadata (submission moderation v1) — minimal audit trail
+    // only. Deliberately does NOT include any Product-verdict field: see
+    // the trust-boundary note above the moderation routes below.
+    reviewedAt: { type: Date, default: null },
+    reviewedBy: { type: String, default: null },
+    reviewerNotes: { type: String, default: null },
+    rejectionReason: { type: String, default: null },
+    linkedProductId: { type: mongoose.Schema.Types.ObjectId, ref: "Product", default: null, index: true },
 
     // meta
     client: {
@@ -102,7 +123,16 @@ try {
   console.warn("Product model not found; OFF lookup route will be disabled.");
 }
 const { fetchFromOFF } = require("./src/lib/off");
+const { createProductReport } = require("./src/domain/productReports");
 const { buildHelmetOptions } = require("./src/config/httpSecurityHeaders");
+const { createRequireAdminKey } = require("./src/config/adminAuth");
+const {
+  listSubmissions,
+  getSubmission,
+  updateSubmissionStatus,
+  linkSubmissionToProduct,
+  unlinkSubmissionFromProduct,
+} = require("./src/domain/submissionModeration");
 
 /* ──────────────────────────────────────────────────────────────────────────
    MIDDLEWARE
@@ -231,6 +261,11 @@ function requireApiKey(req, res, next) {
   }
   next();
 }
+
+// Moderation endpoints use a SEPARATE, fail-closed gate (createRequireAdminKey)
+// rather than requireApiKey above — unlike requireApiKey, this one never
+// becomes public just because ADMIN_KEY is unset. See src/config/adminAuth.js.
+const requireAdminKey = createRequireAdminKey(ADMIN_KEY);
 
 /* ──────────────────────────────────────────────────────────────────────────
    MULTER (in-memory; we pass buffers to sharp)
@@ -405,6 +440,117 @@ app.get("/v1/submissions", requireApiKey, async (req, res) => {
   const docs = await Submission.find(q).sort({ createdAt: -1 }).limit(50).lean();
   res.json({ ok: true, items: docs });
 });
+
+/* ──────────────────────────────────────────────────────────────────────────
+   REPORTS: "product not found" reports (barcode + free-text message +
+   exactly 2 photos). No API key — matches the public, unauthenticated
+   /api/reports behavior already used by the mobile app's report flow.
+   Request-shape/size/type validation lives in src/domain/productReports.js
+   (runs BEFORE any disk write); this route adds its own rate limit since
+   it is the one fully public, unauthenticated write endpoint in this file.
+
+   req.ip / rate-limit assumption: `app.set("trust proxy", 1)` (above)
+   makes req.ip honor exactly one hop of X-Forwarded-For, which is correct
+   for a single reverse-proxy deployment (typical local dev / most PaaS
+   setups). If a future production topology adds more proxy hops, "trust
+   proxy" must be retuned accordingly, or a client that can reach this
+   process directly could spoof X-Forwarded-For to defeat this per-IP limit.
+────────────────────────────────────────────────────────────────────────── */
+const reportsLimiter = rateLimit({
+  windowMs: 10 * 60 * 1000,
+  // Deliberately tighter than the API-key-gated /v1/submissions upload
+  // limiter (60/10min) since this endpoint has no key at all. 20/10min is
+  // generous enough that normal manual contribution QA (a handful of
+  // reports in a session) is never throttled.
+  max: 20,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { ok: false, error: "RATE_LIMITED" },
+});
+
+// No object-storage deletion provider exists yet at this commit boundary —
+// the S3/local driver above has no delete function. createProductReport's
+// cleanup hook (deleteSavedImage) is an optional dependency (see
+// src/domain/productReports.js's cleanupWrittenKeys, which no-ops when it
+// is not supplied) and is simply omitted here rather than wired to a fake
+// provider. Real deletion arrives with the Supabase Storage / photoStorage.js
+// commit.
+
+app.post("/api/reports", reportsLimiter, async (req, res) => {
+  try {
+    const result = await createProductReport(
+      { Submission, saveImageBuffer, uuidv4 },
+      {
+        barcode: req.body?.barcode,
+        message: req.body?.message,
+        photos: req.body?.photos,
+        client: { ip: req.ip, ua: req.get("user-agent") || "" },
+      }
+    );
+    if (!result.ok) {
+      return res.status(result.status).json({ ok: false, error: result.error, hint: result.hint });
+    }
+    return res.status(result.status).json(result.body);
+  } catch (err) {
+    console.error("Report submission error:", err);
+    return res.status(500).json({ ok: false, error: "SERVER_ERROR" });
+  }
+});
+
+/* ──────────────────────────────────────────────────────────────────────────
+   INTERNAL MODERATION (submission moderation v1) — admin-key gated via
+   requireAdminKey, which FAILS CLOSED: if ADMIN_KEY is unset, every route
+   below returns 503 MODERATION_UNAVAILABLE, never falls through as public.
+
+   ═══════════════════════════════════════════════════════════════════════
+   TRUST BOUNDARY (non-negotiable): approving or linking a submission here
+   means "a human reviewer accepted this as usable evidence." It NEVER
+   means "this product is Halal." None of these routes read or write
+   Product.verdict, Product.trust, Product.opinions, Product.ingredients,
+   or invoke src/trust.js / any canonical verdict computation — see
+   src/domain/submissionModeration.js's header for the enforced mechanism
+   (linking only ever reads a Product's _id, never any other field).
+   ═══════════════════════════════════════════════════════════════════════
+
+   Photo display: this commit intentionally returns raw stored photo
+   fields (url/key) as-is, with no signed-URL/display-URL enrichment layer
+   — that enrichment (src/domain/photoDisplayUrls.js, short-lived signed
+   Supabase URLs) is genuinely storage-provider-specific and is deferred to
+   the Supabase Storage commit, which will layer it on top of these same
+   routes without changing their auth/state-machine/trust-boundary behavior.
+────────────────────────────────────────────────────────────────────────── */
+app.get("/api/admin/submissions", requireAdminKey, async (req, res) => {
+  const result = await listSubmissions(Submission, { status: req.query.status, limit: req.query.limit });
+  if (!result.ok) return res.status(result.status).json({ ok: false, error: result.error });
+  return res.status(result.status).json(result.body);
+});
+
+app.get("/api/admin/submissions/:id", requireAdminKey, async (req, res) => {
+  const result = await getSubmission(Submission, req.params.id);
+  return res.status(result.status).json(result.ok ? result.body : { ok: false, error: result.error });
+});
+
+app.patch("/api/admin/submissions/:id/status", requireAdminKey, async (req, res) => {
+  const result = await updateSubmissionStatus(Submission, req.params.id, {
+    toStatus: req.body?.status,
+    reviewedBy: req.body?.reviewedBy,
+    reviewerNotes: req.body?.reviewerNotes,
+    rejectionReason: req.body?.rejectionReason,
+  });
+  return res.status(result.status).json(result.ok ? result.body : { ok: false, error: result.error, hint: result.hint });
+});
+
+app.post("/api/admin/submissions/:id/unlink", requireAdminKey, async (req, res) => {
+  const result = await unlinkSubmissionFromProduct(Submission, req.params.id);
+  return res.status(result.status).json(result.ok ? result.body : { ok: false, error: result.error });
+});
+
+if (Product) {
+  app.post("/api/admin/submissions/:id/link", requireAdminKey, async (req, res) => {
+    const result = await linkSubmissionToProduct(Submission, Product, req.params.id, req.body?.productId);
+    return res.status(result.status).json(result.ok ? result.body : { ok: false, error: result.error, hint: result.hint });
+  });
+}
 
 /* ──────────────────────────────────────────────────────────────────────────
    PRODUCTS: local → OFF fallback lookup (supports ?refresh=1 to force refetch)
