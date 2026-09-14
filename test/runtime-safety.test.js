@@ -262,5 +262,5 @@ test('legacy storage cannot initialize AWS in local mode (synthetic VM)', () => 
 test('npm checks only select isolated tests, not environment loading or the server', () => {
   const manifest = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../package.json'), 'utf8'));
   assert.equal(manifest.scripts.check, 'npm test');
-  assert.equal(manifest.scripts.test, 'node --test test/runtime-safety.test.js test/grocery-result-contract.test.js test/trust-foundation.test.js test/restaurant-result-contract-foundation.test.js test/qa-reference-dataset.test.js');
+  assert.equal(manifest.scripts.test, 'node --test test/runtime-safety.test.js test/grocery-result-contract.test.js test/trust-foundation.test.js test/restaurant-result-contract-foundation.test.js test/qa-reference-dataset.test.js test/http-security-headers.test.js');
 });

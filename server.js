@@ -102,16 +102,13 @@ try {
   console.warn("Product model not found; OFF lookup route will be disabled.");
 }
 const { fetchFromOFF } = require("./src/lib/off");
+const { buildHelmetOptions } = require("./src/config/httpSecurityHeaders");
 
 /* ──────────────────────────────────────────────────────────────────────────
    MIDDLEWARE
 ────────────────────────────────────────────────────────────────────────── */
 app.set("trust proxy", 1);
-app.use(
-  helmet({
-    crossOriginResourcePolicy: { policy: "cross-origin" },
-  })
-);
+app.use(helmet(buildHelmetOptions(runtimeSafety.mode)));
 app.use(
   cors({
     origin: CORS_ORIGIN ? CORS_ORIGIN.split(",").map((s) => s.trim()) : "*",
