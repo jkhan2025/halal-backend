@@ -12,7 +12,7 @@
     "seed": "node seed.js",
     "seed:places": "node scripts/seed-places.js",
     "check": "npm test",
-    "test": "node --test test/runtime-safety.test.js test/grocery-result-contract.test.js test/trust-foundation.test.js test/restaurant-result-contract-foundation.test.js test/qa-reference-dataset.test.js test/http-security-headers.test.js test/admin-auth.test.js test/submission-moderation.test.js test/reports-rate-limit.test.js test/product-reports.test.js test/storage-key.test.js test/photo-storage.test.js test/signed-photo-url.test.js test/photo-display-urls.test.js test/barcode-equivalence.test.js test/product-search.test.js"
+    "test": "node --test test/runtime-safety.test.js test/grocery-result-contract.test.js test/trust-foundation.test.js test/restaurant-result-contract-foundation.test.js test/qa-reference-dataset.test.js test/http-security-headers.test.js test/admin-auth.test.js test/submission-moderation.test.js test/reports-rate-limit.test.js test/product-reports.test.js test/storage-key.test.js test/photo-storage.test.js test/signed-photo-url.test.js test/photo-display-urls.test.js test/barcode-equivalence.test.js test/product-search.test.js test/grocery-discovery.test.js test/grocery-detail.test.js test/restaurant-discovery.test.js test/restaurant-result-contract.test.js test/place-geo.test.js"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",

@@ -1,144 +1,77 @@
 // backend/routes/groceries.routes.js
 const router = require('express').Router();
 const Place = require('../../models/Place');
-const ADMIN_KEY = process.env.ADMIN_KEY || 'dev123';
+const {
+  buildGroceryListProjection,
+  buildGroceryDetailProjection,
+} = require('../domain/groceryTrust');
+const {
+  GroceryDiscoveryInputError,
+  createGroceryDiscoveryPlan,
+  loadGroceryCandidates,
+  finalizeGroceryResults,
+} = require('../domain/groceryDiscovery');
+const ADMIN_KEY = process.env.ADMIN_KEY;
 
-const toRad = (d) => (d * Math.PI) / 180;
-function haversineMeters(a, b) {
-  if (!a || !b || typeof a.lat !== 'number' || typeof a.lng !== 'number' || typeof b.lat !== 'number' || typeof b.lng !== 'number') return null;
-  const R = 6371e3;
-  const φ1 = toRad(a.lat), φ2 = toRad(b.lat);
-  const Δφ = toRad(b.lat - a.lat);
-  const Δλ = toRad(b.lng - a.lng);
-  const s = Math.sin(Δφ/2)**2 + Math.cos(φ1)*Math.cos(φ2)*Math.sin(Δλ/2)**2;
-  return 2 * R * Math.atan2(Math.sqrt(s), Math.sqrt(1-s));
-}
-
-const asArray = (v) =>
-  Array.isArray(v) ? v
-  : v == null ? []
-  : String(v).split(',').map(s => s.trim()).filter(Boolean);
-
-const PROMO_RANK = { featured: 2, sponsored: 1, none: 0 };
-
-/** GET /api/groceries
- *  Query:
- *    q, state, city, tags (string | csv | multi), limit, lat, lng, radius (m)
- *    promoFirst=true  -> put active promos first
+/**
+ * GET /api/groceries
+ * Query:
+ *   q, state, city, tags (csv | multi), limit,
+ *   lat, lng, radius (meters) — proximity requires all three together,
+ *   promoFirst=true|false
  */
 router.get('/', async (req, res) => {
   try {
-    const {
-      q = '',
-      state = '',
-      city = '',
-      tags,
-      limit = '50',
-      lat,
-      lng,
-      radius,
-      promoFirst = 'true',
-    } = req.query;
+    const plan = createGroceryDiscoveryPlan(req.query);
+    const docs = await loadGroceryCandidates(Place, plan);
+    const results = finalizeGroceryResults(docs, plan);
 
-    const lim = Math.min(parseInt(limit, 10) || 50, 100);
-    const tagArr = asArray(tags);
-
-    const cond = { type: 'grocery' };
-    if (state) cond.state = String(state).toUpperCase();
-    if (city) cond.city = new RegExp(String(city).trim(), 'i');
-    if (tagArr.length) cond.tags = { $in: tagArr };
-
-    let docs = [];
-    if (q.trim()) {
-      try {
-        docs = await Place.find({ ...cond, $text: { $search: q.trim() } })
-          .limit(lim)
-          .lean();
-      } catch {
-        const rx = new RegExp(q.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i');
-        docs = await Place.find({ ...cond, $or: [{ name: rx }, { tags: rx }, { city: rx }] })
-          .limit(lim)
-          .lean();
-      }
-    } else {
-      docs = await Place.find(cond).limit(lim).lean();
-    }
-
-    const ref =
-      lat != null && lng != null
-        ? { lat: parseFloat(lat), lng: parseFloat(lng) }
-        : null;
-    const maxR = radius ? parseFloat(radius) : null;
-
-    // Calculate distances (if ref provided) and optionally filter by radius
-    let items = docs.map((d) => {
-      const hasCoords = d?.coords && typeof d.coords.lat === 'number' && typeof d.coords.lng === 'number';
-      const dist = ref && hasCoords ? haversineMeters(ref, d.coords) : null;
-      return { ...d, distance: dist };
-    });
-
-     if (ref && maxR) {
-   // When using a radius, only keep items that HAVE a distance and are within the fence
-   items = items.filter((d) => d.distance != null && d.distance <= maxR);
- }
-
-    // Promo logic
-    const now = new Date();
-    const isPromoActive = (p) =>
-      !!(p && p.active) &&
-      (!p.startAt || new Date(p.startAt) <= now) &&
-      (!p.endAt || new Date(p.endAt) >= now);
-
-    const inPromoFence = (p) => {
-      if (!p || !p.geoCenter || !Array.isArray(p.geoCenter.coordinates) || p.geoCenter.coordinates.length < 2 || !p.geoRadiusM) {
-        return true; // no fence means global
-      }
-      if (!ref) return true; // if client didn't pass ref, treat as eligible
-      const center = { lat: p.geoCenter.coordinates[1], lng: p.geoCenter.coordinates[0] };
-      const d = haversineMeters(ref, center);
-      return d != null && d <= p.geoRadiusM;
-    };
-
-    const promoted = [];
-    const organic = [];
-    for (const it of items) {
-      if (isPromoActive(it.promo) && inPromoFence(it.promo)) promoted.push(it);
-      else organic.push(it);
-    }
-
-    // Sort buckets
-    const sortByDistanceThenName = (a, b) =>
-      (a.distance ?? Infinity) - (b.distance ?? Infinity) || (a.name || '').localeCompare(b.name || '');
-
-    promoted.sort((a, b) => {
-      const ar = PROMO_RANK[a?.promo?.tier || 'none'] || 0;
-      const br = PROMO_RANK[b?.promo?.tier || 'none'] || 0;
-      if (br !== ar) return br - ar; // featured > sponsored
-      const ap = a?.promo?.priority ?? 0;
-      const bp = b?.promo?.priority ?? 0;
-      if (bp !== ap) return bp - ap; // higher priority first
-      return sortByDistanceThenName(a, b);
-    });
-
-    organic.sort(sortByDistanceThenName);
-
-    const result =
-      String(promoFirst).toLowerCase() === 'true'
-        ? [...promoted, ...organic].slice(0, lim)
-        : [...organic, ...promoted].slice(0, lim);
-
-    // fire-and-forget impressions bump (don’t block request)
-    const ids = result.map((d) => d._id).filter(Boolean);
+    // non-blocking impression bump
+    const ids = results.map((d) => d._id).filter(Boolean);
     if (ids.length) {
       Place.updateMany({ _id: { $in: ids } }, { $inc: { 'metrics.impressions': 1 } }).exec();
     }
 
-    res.json(result);
+    // Public grocery discovery uses the curated Grocery Contract v1
+    // projection. This intentionally excludes raw legacy halal/certified
+    // booleans, the unvalidated groceryTrust storage shape, restaurantTrust,
+    // and promo/metrics internals. Only a minimal isPromoted disclosure
+    // survives, computed from eligibility decided before promoted ordering.
+    res.json(results.map((place) => ({
+      ...buildGroceryListProjection(place),
+      isPromoted: Boolean(place._promoted),
+    })));
   } catch (e) {
+    if (e instanceof GroceryDiscoveryInputError) {
+      return res.status(e.statusCode).json({ ok: false, error: e.code });
+    }
     console.error(e);
     res.status(500).json({ ok: false, error: 'SERVER_ERROR' });
   }
 });
+
+function isStablePlaceId(value) {
+  return typeof value === 'string' && /^[a-f\d]{24}$/i.test(value);
+}
+
+function createGroceryDetailHandler({ PlaceModel = Place, logger = console } = {}) {
+  return async (req, res) => {
+    try {
+      const placeId = String(req.params?.id || '').trim();
+      if (!isStablePlaceId(placeId)) {
+        return res.status(404).json({ ok: false, error: 'NOT_FOUND' });
+      }
+      const place = await PlaceModel.findOne({ _id: placeId, type: 'grocery' }).lean();
+      if (!place) return res.status(404).json({ ok: false, error: 'NOT_FOUND' });
+      return res.json({ ok: true, item: buildGroceryDetailProjection(place) });
+    } catch (error) {
+      logger.error(error);
+      return res.status(500).json({ ok: false, error: 'SERVER_ERROR' });
+    }
+  };
+}
+
+router.get('/:id', createGroceryDetailHandler());
 
 // POST /api/groceries/bulk  (admin)
 router.post('/bulk', async (req, res) => {
@@ -180,3 +113,5 @@ router.post('/bulk', async (req, res) => {
 });
 
 module.exports = router;
+module.exports.isStablePlaceId = isStablePlaceId;
+module.exports.createGroceryDetailHandler = createGroceryDetailHandler;
