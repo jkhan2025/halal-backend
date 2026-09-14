@@ -134,6 +134,9 @@ try {
   console.warn("Product model not found; OFF lookup route will be disabled.");
 }
 const { fetchFromOFF } = require("./src/lib/off");
+const { buildProductLookupPayload } = require("./src/domain/trust");
+const { findProductByBarcodeCandidates } = require("./src/domain/productLookup");
+const { searchProducts } = require("./src/domain/productSearch");
 const { createProductReport } = require("./src/domain/productReports");
 const { buildHelmetOptions } = require("./src/config/httpSecurityHeaders");
 const { createRequireAdminKey } = require("./src/config/adminAuth");
@@ -529,9 +532,25 @@ if (Product) {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   PRODUCTS: local → OFF fallback lookup (supports ?refresh=1 to force refetch)
+   PRODUCTS: search, and local → OFF fallback lookup (supports ?refresh=1 to
+   force refetch)
 ────────────────────────────────────────────────────────────────────────── */
 if (Product) {
+  // Text search by name/brand/category (?query=, optional ?region=, ?limit=).
+  app.get("/api/products", async (req, res) => {
+    try {
+      const result = await searchProducts(Product, {
+        query: req.query.query,
+        region: req.query.region,
+        limit: req.query.limit,
+      });
+      return res.json(result);
+    } catch (err) {
+      console.error("Product search error:", err);
+      return res.status(500).json({ ok: false, error: "SERVER_ERROR" });
+    }
+  });
+
   app.get("/api/products/:barcode", async (req, res) => {
     try {
       const barcode = String(req.params.barcode || "").replace(/\D/g, "");
@@ -540,10 +559,11 @@ if (Product) {
       const force = String(req.query.refresh || req.query.force || "").toLowerCase();
       const shouldRefresh = force === "1" || force === "true" || force === "yes";
 
-      // 1) Try local unless refresh is requested
+      // 1) Try local (the requested barcode, then its UPC-A/EAN-13
+      // equivalent if it has one) unless refresh is requested
       if (!shouldRefresh) {
-        const doc = await Product.findOne({ barcode }).lean();
-        if (doc) return res.json({ ok: true, source: "local", item: doc });
+        const doc = await findProductByBarcodeCandidates(Product, barcode);
+        if (doc) return res.json(buildProductLookupPayload(doc, "local"));
       }
 
       // 2) Fallback to OFF
@@ -552,8 +572,8 @@ if (Product) {
 
       if (!normalized) {
         // If OFF fails but we have local, return local
-        const fallback = await Product.findOne({ barcode }).lean();
-        if (fallback) return res.json({ ok: true, source: "local", item: fallback });
+        const fallback = await findProductByBarcodeCandidates(Product, barcode);
+        if (fallback) return res.json(buildProductLookupPayload(fallback, "local"));
         return res.status(404).json({ ok: false, error: "NOT_FOUND" });
       }
 
@@ -564,7 +584,7 @@ if (Product) {
         { new: true, upsert: true }
       ).lean();
 
-      return res.json({ ok: true, source: "openfoodfacts", item: saved });
+      return res.json(buildProductLookupPayload(saved, "openfoodfacts"));
     } catch (err) {
       console.error("OFF lookup error:", err);
       return res.status(500).json({ ok: false, error: "SERVER_ERROR" });
