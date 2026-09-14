@@ -12,7 +12,7 @@
     "seed": "node seed.js",
     "seed:places": "node scripts/seed-places.js",
     "check": "npm test",
-    "test": "node --test test/runtime-safety.test.js"
+    "test": "node --test test/runtime-safety.test.js test/grocery-result-contract.test.js test/trust-foundation.test.js test/restaurant-result-contract-foundation.test.js"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.624.0",
